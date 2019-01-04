@@ -96,6 +96,7 @@ NSString *gTitle=@"";
             NSString *poster_Path = movieDict[@"poster_path"];
             NSString *overview = movieDict[@"overview"];
             NSString *release_Date = movieDict[@"release_date"];
+            NSString *original_Language = movieDict[@"original_language"];
             
             
             Movie_Data *movie = Movie_Data.new;
@@ -104,6 +105,7 @@ NSString *gTitle=@"";
             movie.vote_Average = vote_Average;
             movie.overview = overview;
             movie.release_Date = release_Date;
+            movie.original_Language = original_Language;
             
             NSString *urlstr_img = @"https://image.tmdb.org/t/p/w200";
             movie.poster_Path = [urlstr_img stringByAppendingString: poster_Path];
@@ -177,13 +179,13 @@ NSString *gTitle=@"";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    Movie_Data *movie_Index = [self.movies objectAtIndex:indexPath.row];
+//    Movie_Data *movie_Index = [self.movies objectAtIndex:indexPath.row];
 //
     [self performSegueWithIdentifier:@"showDetail" sender:indexPath];
 //
-    ViewController_Detail *VC_D = [[ViewController_Detail alloc] init];
+//    ViewController_Detail *VC_D = [[ViewController_Detail alloc] init];
 
-    VC_D.strTitle=movie_Index.title;
+    
 //
 ////    gTitle = movie_Index.title;
 ////
@@ -216,7 +218,7 @@ NSString *gTitle=@"";
 //        Movie_Data *movie_Index = [self.movies objectAtIndex:indexPath.row];
 
 
-//        [VC_D setTitle:str];
+        [VC_D setTitle:movie_picked.title];
 
     }
 }

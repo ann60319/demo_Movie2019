@@ -14,7 +14,7 @@
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *overview;
 @property (strong, nonatomic) NSString *homepage;
-//@property (strong, nonatomic) NSString *genres;
+@property (strong, nonatomic) NSString *original_Language;
 
 @property (strong, nonatomic) NSString *movie_Id;
 @property (strong, nonatomic) NSString *poster_Path;

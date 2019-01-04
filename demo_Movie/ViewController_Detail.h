@@ -13,6 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ViewController_Detail : UIViewController
 
 @property(strong,nonatomic) IBOutlet UILabel *lblTitle;
+@property (weak, nonatomic) IBOutlet UILabel *lblVote_Ave;
+@property (weak, nonatomic) IBOutlet UILabel *lblReleaseDate;
+@property (weak, nonatomic) IBOutlet UILabel *lblOriginal_Language;
+@property (weak, nonatomic) IBOutlet UIImageView *img_MoviePoster;
+
+
 @property(strong,nonatomic) NSString *strTitle;
 @property NSInteger *row;
 
