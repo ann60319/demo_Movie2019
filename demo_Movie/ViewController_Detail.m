@@ -109,7 +109,7 @@
         
         VC_Web.movie = movie_homepage;
         
-        NSLog(@"VC_Web.movie: %@",VC_Web.movie.homepage);
+//        NSLog(@"VC_Web.movie: %@",VC_Web.movie.homepage);
         
     }
     
