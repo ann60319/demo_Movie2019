@@ -18,10 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lblOriginal_Language;
 @property (weak, nonatomic) IBOutlet UIImageView *img_MoviePoster;
 
+- (IBAction)btnHomepage:(id)sender;
 
-@property(strong,nonatomic) NSString *strTitle;
+@property(strong,nonatomic) NSString *strPoster_path;
+@property(strong,nonatomic) NSString *strHomepage;
+@property(strong,nonatomic) NSString *strMovie_id;
+
 @property NSInteger *row;
-
 @property (strong,nonatomic)Movie_Data *movie_data;
 
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		550FB9DBD12880B911090AB2 /* Pods_demo_Movie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ADA5BAEC68D03589BEDACCD /* Pods_demo_Movie.framework */; };
+		860A333821E2E0E8006C277D /* ViewController_WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 860A333721E2E0E8006C277D /* ViewController_WebView.m */; };
 		8617A87921CCCF5D00CFE0B7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8617A87821CCCF5D00CFE0B7 /* AppDelegate.m */; };
 		8617A87C21CCCF5D00CFE0B7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8617A87B21CCCF5D00CFE0B7 /* ViewController.m */; };
 		8617A87F21CCCF5D00CFE0B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8617A87D21CCCF5D00CFE0B7 /* Main.storyboard */; };
@@ -40,6 +41,8 @@
 
 /* Begin PBXFileReference section */
 		2C684EC3F4F9D1BBA5167489 /* Pods-demo_Movie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo_Movie.debug.xcconfig"; path = "Pods/Target Support Files/Pods-demo_Movie/Pods-demo_Movie.debug.xcconfig"; sourceTree = "<group>"; };
+		860A333621E2E0E8006C277D /* ViewController_WebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController_WebView.h; sourceTree = "<group>"; };
+		860A333721E2E0E8006C277D /* ViewController_WebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController_WebView.m; sourceTree = "<group>"; };
 		8617A87421CCCF5D00CFE0B7 /* demo_Movie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demo_Movie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8617A87721CCCF5D00CFE0B7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8617A87821CCCF5D00CFE0B7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -132,6 +135,8 @@
 				8617A87B21CCCF5D00CFE0B7 /* ViewController.m */,
 				861936FC21DC8EFA00756FFA /* ViewController_Detail.h */,
 				861936FD21DC8EFA00756FFA /* ViewController_Detail.m */,
+				860A333621E2E0E8006C277D /* ViewController_WebView.h */,
+				860A333721E2E0E8006C277D /* ViewController_WebView.m */,
 				8617A8A921CDD89B00CFE0B7 /* Movie_Data.h */,
 				8617A8AA21CDD89B00CFE0B7 /* Movie_Data.m */,
 				8617A87D21CCCF5D00CFE0B7 /* Main.storyboard */,
@@ -357,6 +362,7 @@
 				861936FE21DC8EFA00756FFA /* ViewController_Detail.m in Sources */,
 				8617A87C21CCCF5D00CFE0B7 /* ViewController.m in Sources */,
 				8617A88721CCCF5D00CFE0B7 /* main.m in Sources */,
+				860A333821E2E0E8006C277D /* ViewController_WebView.m in Sources */,
 				8617A87921CCCF5D00CFE0B7 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

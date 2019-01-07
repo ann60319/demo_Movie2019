@@ -49,16 +49,6 @@ NSString *gTitle=@"";
     
 }
 
--(void) getPoster{
-   
-    
-    
-//    NSString *addImg = movie.poster_Path;
-//    NSString *urlstr_img = @"https://image.tmdb.org/t/p/w500/";
-//    NSString *urlstr_img_complete = [urlstr_img stringByAppendingString:addImg];
-//
-//    NSURL *url_img = [NSURL URLWithString:urlstr_img_complete];
-}
 
 -(void) getJson_MovieNowPlaying{
 //    NSLog(@"getJson_MovieNowPlaying......");
@@ -106,6 +96,7 @@ NSString *gTitle=@"";
             movie.overview = overview;
             movie.release_Date = release_Date;
             movie.original_Language = original_Language;
+
             
             NSString *urlstr_img = @"https://image.tmdb.org/t/p/w200";
             movie.poster_Path = [urlstr_img stringByAppendingString: poster_Path];
@@ -169,8 +160,8 @@ NSString *gTitle=@"";
     
 
    
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:movies.poster_Path] ];
-    //placeholderImage:[UIImage imageNamed:@"no-image.png"]
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:movies.poster_Path] placeholderImage:[UIImage imageNamed:@"no-image.png"]];
+    
     cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
    
     return cell;
@@ -179,22 +170,9 @@ NSString *gTitle=@"";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    Movie_Data *movie_Index = [self.movies objectAtIndex:indexPath.row];
-//
-    [self performSegueWithIdentifier:@"showDetail" sender:indexPath];
-//
-//    ViewController_Detail *VC_D = [[ViewController_Detail alloc] init];
 
-    
-//
-////    gTitle = movie_Index.title;
-////
-//
-//    NSLog(@"movie_Index.title:%@",movie_Index.title);
-//    NSLog(@"VC_D.strTitle: %@",VC_D.strTitle);
-//    [self.navigationController pushViewController:ViewController_Detail animated:YES];
-    
-    
+    [self performSegueWithIdentifier:@"showDetail" sender:indexPath];
+ 
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -208,16 +186,7 @@ NSString *gTitle=@"";
         Movie_Data *movie_picked = self.movies[index_Path.row];
        
         VC_D.movie_data = movie_picked;
-        
-//        VC_D.strTitle=movie_picked.title;
-        
-        NSLog(@"indexpath:%@",index_Path);
-        NSLog(@"VC_D.strTitle: %@",VC_D.strTitle);
-        
-        
-//        Movie_Data *movie_Index = [self.movies objectAtIndex:indexPath.row];
-
-
+    
         [VC_D setTitle:movie_picked.title];
 
     }
