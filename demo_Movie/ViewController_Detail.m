@@ -86,7 +86,7 @@
 
         self.strHomepage= [NSString stringWithFormat: @"%@", arr_homepage];
         
-        NSLog(@"arr_homepage: %@",self.strHomepage);
+        NSLog(@"strHomepage: %@",self.strHomepage);
      
 
         
