@@ -36,7 +36,7 @@
     
     strMovie_id=self.movie_data.movie_Id;
 
-    NSLog(@"movie id: %@",strMovie_id);
+//    NSLog(@"movie id: %@",strMovie_id);
     
     [self load_img];
     [self getJSON_Movie_Detail];
@@ -64,7 +64,7 @@
     
     [[NSURLSession.sharedSession dataTaskWithURL:url_Mov_Detail completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
-        NSLog(@"finished get json.....");
+//        NSLog(@"finished get json.....");
 
         NSString *dumbStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 //        NSLog(@"dumbStr is : %@", dumbStr);
