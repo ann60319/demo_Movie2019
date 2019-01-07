@@ -108,7 +108,6 @@
                                 </state>
                                 <connections>
                                     <action selector="btnHomepage:" destination="4L2-0g-8CQ" eventType="touchUpInside" id="weL-3u-LkI"/>
-                                    <segue destination="IsP-8o-tyF" kind="show" identifier="showWeb" id="D0E-Lc-bZi"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -122,6 +121,7 @@
                         <outlet property="lblReleaseDate" destination="XIm-Y7-zXJ" id="qDV-9J-vPu"/>
                         <outlet property="lblTitle" destination="WoE-Ai-aJu" id="Ufg-p4-DMw"/>
                         <outlet property="lblVote_Ave" destination="liK-nD-She" id="FJi-Ab-76q"/>
+                        <segue destination="IsP-8o-tyF" kind="push" identifier="showWeb" id="mVb-lw-06N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W1s-WN-6iK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -141,16 +141,32 @@
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mak-kl-rsE">
+                                <rect key="frame" x="172.5" y="236" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="2N3-6a-FWk"/>
+                                    <constraint firstAttribute="width" constant="30" id="Ekd-aO-htJ"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vfy-mf-gfO" firstAttribute="bottom" secondItem="Lls-Us-Z8T" secondAttribute="bottom" id="2Wc-m4-yRD"/>
                             <constraint firstItem="vfy-mf-gfO" firstAttribute="trailing" secondItem="Lls-Us-Z8T" secondAttribute="trailing" id="7R2-ON-89h"/>
+                            <constraint firstItem="mak-kl-rsE" firstAttribute="centerX" secondItem="Lls-Us-Z8T" secondAttribute="centerX" id="9im-qN-uas"/>
                             <constraint firstItem="Lls-Us-Z8T" firstAttribute="top" secondItem="vfy-mf-gfO" secondAttribute="top" id="K07-qp-eUZ"/>
+                            <constraint firstItem="mak-kl-rsE" firstAttribute="top" secondItem="vfy-mf-gfO" secondAttribute="top" constant="172" id="WX4-GT-8dH"/>
+                            <constraint firstItem="mak-kl-rsE" firstAttribute="leading" secondItem="vfy-mf-gfO" secondAttribute="leading" constant="172.5" id="acV-Qk-Kie"/>
+                            <constraint firstItem="vfy-mf-gfO" firstAttribute="trailing" secondItem="mak-kl-rsE" secondAttribute="trailing" constant="172.5" id="bv9-f2-XzZ"/>
                             <constraint firstItem="Lls-Us-Z8T" firstAttribute="leading" secondItem="vfy-mf-gfO" secondAttribute="leading" id="cca-le-nLg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vfy-mf-gfO"/>
                     </view>
+                    <navigationItem key="navigationItem" id="P1K-KL-5Ou"/>
+                    <connections>
+                        <outlet property="act_Indicator" destination="mak-kl-rsE" id="JZ7-aK-D9E"/>
+                        <outlet property="webView" destination="Lls-Us-Z8T" id="0Zw-ai-vK5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uqu-dW-Aeu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

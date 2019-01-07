@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "ViewController_WebView.h"
+#import "ViewController_WebView.h"
 
 @interface ViewController_Detail ()
 
@@ -79,26 +80,39 @@
             return ;
         }
         
-        
-      
 
         NSArray *arr_homepage = [movieJson valueForKey:@"homepage"];
 
         self.strHomepage= [NSString stringWithFormat: @"%@", arr_homepage];
         
-        NSLog(@"strHomepage: %@",self.strHomepage);
-     
+        self.movie_data.homepage=self.strHomepage;
+        
+//        NSLog(@"strHomepage: %@",self.strHomepage);
 
-        
-        
     }]resume];
     
  
 }
 
-
 - (IBAction)btnHomepage:(id)sender {
 
+    [self performSegueWithIdentifier:@"showWeb" sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if ([[segue identifier] isEqualToString:@"showWeb"])
+    {
+        Movie_Data *movie_homepage = self.movie_data;
+        
+        ViewController_WebView *VC_Web = (ViewController_WebView *)[segue destinationViewController];
+        
+        VC_Web.movie = movie_homepage;
+        
+        NSLog(@"VC_Web.movie: %@",VC_Web.movie.homepage);
+        
+    }
     
 }
+
 @end
