@@ -47,7 +47,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     [self.act_Indicator stopAnimating];
-    self.act_Indicator.hidesWhenStopped=YES;
+    self.act_Indicator.hidesWhenStopped = YES;
 }
 
 @end

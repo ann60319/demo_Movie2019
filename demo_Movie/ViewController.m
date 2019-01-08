@@ -27,20 +27,21 @@
 @implementation ViewController
 
 NSString *cellid=@"cellid";
-NSString *gTitle=@"";
 
+NSString *urlstr_movieNowPlaying;
 
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    urlstr_movieNowPlaying = @"https://api.themoviedb.org/3/movie/now_playing?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US";
     
     [self setUpMovies];
-    [self getJson_MovieNowPlaying];
+    [self getJson_MovieNowPlaying:urlstr_movieNowPlaying];
 
     
-    self.navigationItem.title = @"Movies Now Playing";
+    self.navigationItem.title = @"Now Playing";
     self.navigationController.navigationBar.prefersLargeTitles=YES;
     
     
@@ -50,19 +51,16 @@ NSString *gTitle=@"";
 }
 
 
--(void) getJson_MovieNowPlaying{
+-(void) getJson_MovieNowPlaying:(NSString *)Url{
 //    NSLog(@"getJson_MovieNowPlaying......");
 
-    NSString *urlstr_movieNowPlaying = @"https://api.themoviedb.org/3/movie/now_playing?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US";
     
-    NSURL *url = [NSURL URLWithString:urlstr_movieNowPlaying];
+    
+    NSURL *url = [NSURL URLWithString:Url];
     
     [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
-//        NSLog(@"finished get json.....");
-        
-//        NSString *dumbStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//        NSLog(@"dumbStr is : %@", dumbStr);
+
         
         NSError *err;
         NSDictionary *movieJson = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&err];
