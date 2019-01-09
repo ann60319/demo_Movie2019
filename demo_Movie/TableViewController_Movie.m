@@ -25,7 +25,7 @@
 
 @implementation TableViewController_Movie
 
-int intSearchedYear=1995;
+int intPage=1;
 
 NSString *cell=@"cell";
 NSString *urlStrDiscoveredMovie;
@@ -35,13 +35,11 @@ NSString *urlStrDiscoveredMovie;
     
     [super viewDidLoad];
     
-//    [self addOnOneYear];
-    
-    urlStrDiscoveredMovie = [NSString stringWithFormat:@"https://api.themoviedb.org/3/discover/movie?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=%d",intSearchedYear];
+
+    urlStrDiscoveredMovie = [NSString stringWithFormat:@"https://api.themoviedb.org/3/discover/movie?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US&include_adult=false&include_video=false&page=%d",intPage];
     
    
-//    NSLog(@"searchedYear: %d",intSearchedYear);
-//    NSLog(@"addOnyear: %d",addOnYear);
+
     //load data
     [self searchPastMovies:urlStrDiscoveredMovie];
     
@@ -57,22 +55,6 @@ NSString *urlStrDiscoveredMovie;
     [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:cell];
    
 }
-
-
-//-(NSInteger) addOnOneYear
-//{
-//    static int addOnYear=0;
-//    if (addOnYear == 0){
-//        intSearchedYear = 2000;
-//    }
-//    else{
-//        addOnYear++;
-//        intSearchedYear = intSearchedYear+addOnYear;
-//    }
-//
-//
-//    return intSearchedYear;
-//}
 
 #pragma mark - Table view data source
 
@@ -99,9 +81,6 @@ NSString *urlStrDiscoveredMovie;
     NSString *lastUpdated = [NSString stringWithFormat:@"Last update on %@",[dateFormatter stringFromDate:[NSDate date]]];
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
     
-    [self searchPastMovies:urlStrDiscoveredMovie];
-    
-    
     
     [refresh endRefreshing];
 }
@@ -110,77 +89,67 @@ NSString *urlStrDiscoveredMovie;
  
      NSURL *url = [NSURL URLWithString:Url];
  
-     [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
- 
- 
- 
-     NSError *err;
-     NSDictionary *movieJson = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&err];
-     if (err){
-     NSLog(@"failed to serialized into json : %@",err);
-     return ;
-     }
- 
-//             NSLog(@"json: %@",movieJson);
- 
-     NSArray *movieResults = [movieJson valueForKey:@"results"];
-//             NSLog(@"result: %@",movieResults);
- 
- 
-     NSMutableArray<Movie_Data *> *arrayMoviedataPastMovies = NSMutableArray.new;
- 
-         for(NSDictionary *movieDict in movieResults){
-         NSString *title = movieDict[@"title"];
-         NSString *movie_Id = movieDict[@"id"];
-         NSNumber *vote_Average = movieDict[@"vote_average"];
-         NSString *poster_Path = movieDict[@"poster_path"];
-         NSString *overview = movieDict[@"overview"];
-         NSString *release_Date = movieDict[@"release_date"];
-         NSString *original_Language = movieDict[@"original_language"];
- 
- 
-         Movie_Data *movie = Movie_Data.new;
-         movie.title = title;
-         movie.movie_Id = movie_Id;
-         movie.vote_Average = vote_Average;
-         movie.overview = overview;
-         movie.release_Date = release_Date;
-         movie.original_Language = original_Language;
- 
- 
-         NSString *urlstr_img = @"https://image.tmdb.org/t/p/w200";
-         movie.poster_Path = [urlstr_img stringByAppendingString: poster_Path];
- 
- 
-         [arrayMoviedataPastMovies addObject:movie];
-             
-         if(intSearchedYear==1995){
-             self.arraymoviesInThePast = arrayMoviedataPastMovies;
-             
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [self.tableView reloadData];
-             });
-         }
-         else{
-             [self.arraymoviesInThePast addObjectsFromArray:arrayMoviedataPastMovies];
-             NSLog(@"url: %@",urlStrDiscoveredMovie);
-             
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [self.tableView reloadData];
-             });
-         }
-         
-
-         
-         
-         
-         
- 
-     
-     }
- 
-     }]resume];
     
+        [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            
+            NSError *err;
+            NSDictionary *movieJson = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&err];
+            if (err){
+                NSLog(@"failed to serialized into json : %@",err);
+                return ;
+            }
+           
+            NSArray *movieResults = [movieJson valueForKey:@"results"];
+            NSLog(@"movie-result:%@",movieResults);
+            NSMutableArray<Movie_Data *> *arrayMoviedataPastMovies = NSMutableArray.new;
+            
+            for(NSDictionary *movieDict in movieResults){
+                NSString *title = movieDict[@"title"];
+                NSString *movie_Id = movieDict[@"id"];
+                NSNumber *vote_Average = movieDict[@"vote_average"];
+                NSString *poster_Path = movieDict[@"poster_path"];
+                NSString *overview = movieDict[@"overview"];
+                NSString *release_Date = movieDict[@"release_date"];
+                NSString *original_Language = movieDict[@"original_language"];
+                
+                
+                Movie_Data *movie = Movie_Data.new;
+                movie.title = title;
+                movie.movie_Id = movie_Id;
+                movie.vote_Average = vote_Average;
+                movie.overview = overview;
+                movie.release_Date = release_Date;
+                movie.original_Language = original_Language;
+                
+                
+                NSString *urlstr_img = @"https://image.tmdb.org/t/p/w200";
+                movie.poster_Path = [urlstr_img stringByAppendingString: poster_Path];
+                
+                
+                [arrayMoviedataPastMovies addObject:movie];
+                
+                
+            }
+            
+            if(intPage==1){
+                self.arraymoviesInThePast = arrayMoviedataPastMovies;
+                //             NSLog(@"1---self.arraymoviesInThePast :%lu",(unsigned long)self.arraymoviesInThePast.count);
+            }
+            
+            else{
+                [self.arraymoviesInThePast addObjectsFromArray:arrayMoviedataPastMovies];
+                for(NSObject * a in  arrayMoviedataPastMovies){
+                    NSLog(@"a: %@",a);
+                }
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                
+            });
+            
+            
+        }]resume];
     
  }
 
@@ -214,16 +183,16 @@ NSString *urlStrDiscoveredMovie;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.frame.size.height) {
 //        NSLog(@"At the bottom.....");
-        if(intSearchedYear<2019){
+        if(intPage<200){
             
-            intSearchedYear++;
-           
-            urlStrDiscoveredMovie = [NSString stringWithFormat:@"https://api.themoviedb.org/3/discover/movie?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=%d",intSearchedYear];
+            intPage++;
+//            isRequestData=false;
+            
+            urlStrDiscoveredMovie = [NSString stringWithFormat:@"https://api.themoviedb.org/3/discover/movie?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US&include_adult=false&include_video=false&page=%d",intPage];
             [self searchPastMovies:urlStrDiscoveredMovie];
-            
-            
-            
-                NSLog(@"searchyear-scrollbottom:%d",intSearchedYear);
+          
+           
+            NSLog(@"searchyear-scrollbottom:%d",intPage);
         }
         
         
