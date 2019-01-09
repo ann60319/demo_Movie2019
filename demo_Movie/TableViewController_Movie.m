@@ -25,7 +25,7 @@
 
 @implementation TableViewController_Movie
 
-int intSearchedYear;
+int intSearchedYear=1995;
 
 NSString *cell=@"cell";
 NSString *urlStrDiscoveredMovie;
@@ -35,12 +35,12 @@ NSString *urlStrDiscoveredMovie;
     
     [super viewDidLoad];
     
-    [self addOnOneYear];
+//    [self addOnOneYear];
     
     urlStrDiscoveredMovie = [NSString stringWithFormat:@"https://api.themoviedb.org/3/discover/movie?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=%d",intSearchedYear];
     
    
-    NSLog(@"searchedYear: %d",intSearchedYear);
+//    NSLog(@"searchedYear: %d",intSearchedYear);
 //    NSLog(@"addOnyear: %d",addOnYear);
     //load data
     [self searchPastMovies:urlStrDiscoveredMovie];
@@ -59,20 +59,20 @@ NSString *urlStrDiscoveredMovie;
 }
 
 
--(NSInteger) addOnOneYear
-{
-    static int addOnYear=0;
-    if (addOnYear == 0){
-        intSearchedYear = 2000;
-    }
-    else{
-        addOnYear++;
-        intSearchedYear = intSearchedYear+addOnYear;
-    }
-    
-    
-    return intSearchedYear;
-}
+//-(NSInteger) addOnOneYear
+//{
+//    static int addOnYear=0;
+//    if (addOnYear == 0){
+//        intSearchedYear = 2000;
+//    }
+//    else{
+//        addOnYear++;
+//        intSearchedYear = intSearchedYear+addOnYear;
+//    }
+//
+//
+//    return intSearchedYear;
+//}
 
 #pragma mark - Table view data source
 
@@ -121,10 +121,10 @@ NSString *urlStrDiscoveredMovie;
      return ;
      }
  
-     //        NSLog(@"json: %@",movieJson);
+//             NSLog(@"json: %@",movieJson);
  
      NSArray *movieResults = [movieJson valueForKey:@"results"];
-     //        NSLog(@"result: %@",movieResults);
+//             NSLog(@"result: %@",movieResults);
  
  
      NSMutableArray<Movie_Data *> *arrayMoviedataPastMovies = NSMutableArray.new;
@@ -152,18 +152,36 @@ NSString *urlStrDiscoveredMovie;
          movie.poster_Path = [urlstr_img stringByAppendingString: poster_Path];
  
  
-             [arrayMoviedataPastMovies addObject:movie];
+         [arrayMoviedataPastMovies addObject:movie];
+             
+         if(intSearchedYear==1995){
              self.arraymoviesInThePast = arrayMoviedataPastMovies;
- 
-                 dispatch_async(dispatch_get_main_queue(), ^{
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
                  [self.tableView reloadData];
-                 });
-     
-         
+             });
          }
+         else{
+             [self.arraymoviesInThePast addObjectsFromArray:arrayMoviedataPastMovies];
+             NSLog(@"url: %@",urlStrDiscoveredMovie);
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+             });
+         }
+         
+
+         
+         
+         
+         
+ 
+     
+     }
  
      }]resume];
- 
+    
+    
  }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -171,7 +189,10 @@ NSString *urlStrDiscoveredMovie;
     
     Movie_Data *pastMovieList = self.arraymoviesInThePast[indexPath.row];
     
+    
     cell.textLabel.text = pastMovieList.title;
+    
+//    NSLog(@"past movie title: %@",pastMovieList.title);
     cell.textLabel.numberOfLines=2;
     
     cell.detailTextLabel.text=pastMovieList.overview;
@@ -190,52 +211,27 @@ NSString *urlStrDiscoveredMovie;
     return 100;
 }
 
-
-
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.frame.size.height) {
+//        NSLog(@"At the bottom.....");
+        if(intSearchedYear<2019){
+            
+            intSearchedYear++;
+           
+            urlStrDiscoveredMovie = [NSString stringWithFormat:@"https://api.themoviedb.org/3/discover/movie?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=%d",intSearchedYear];
+            [self searchPastMovies:urlStrDiscoveredMovie];
+            
+            
+            
+                NSLog(@"searchyear-scrollbottom:%d",intSearchedYear);
+        }
+        
+        
+    }
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 
 
