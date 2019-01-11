@@ -52,9 +52,7 @@ NSString *urlstr_movieNowPlaying;
 
 
 -(void) getJson_MovieNowPlaying:(NSString *)Url{
-//    NSLog(@"getJson_MovieNowPlaying......");
 
-    
     
     NSURL *url = [NSURL URLWithString:Url];
     
@@ -68,8 +66,6 @@ NSString *urlstr_movieNowPlaying;
             NSLog(@"failed to serialized into json : %@",err);
             return ;
         }
-        
-//        NSLog(@"json: %@",movieJson);
         
         NSArray *movieResults = [movieJson valueForKey:@"results"];
 //        NSLog(@"result: %@",movieResults);
@@ -107,13 +103,7 @@ NSString *urlstr_movieNowPlaying;
              [self.tableView reloadData];
             });
             
-//            NSLog(@"%@", arr_movies);
-//            NSLog(@"%@", title);
-//            NSLog(@"%@", movie_Id);
-//            NSLog(@"%@", vote_Average);
-//            NSLog(@"%@", movie.poster_Path);
-//            NSLog(@"%@", overview);
-//            NSLog(@"%@", release_Date);
+
             
         }
 
@@ -133,7 +123,7 @@ NSString *urlstr_movieNowPlaying;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    return 110;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:
@@ -143,9 +133,7 @@ NSString *urlstr_movieNowPlaying;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    UITableViewCell *cell = [ tableView
-//        dequeueReusableCellWithIdentifier:cellid
-//        forIndexPath:indexPath];
+
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellid];
     
     Movie_Data *movies = self.movies[indexPath.row];
@@ -153,8 +141,9 @@ NSString *urlstr_movieNowPlaying;
     cell.textLabel.text = movies.title;
     cell.textLabel.numberOfLines=2;
     
-    cell.detailTextLabel.text=movies.overview;
-    cell.detailTextLabel.numberOfLines=3;
+    NSString *cell_Detail= [NSString stringWithFormat:@"%@\r%@", movies.release_Date,movies.overview];;
+    cell.detailTextLabel.text=cell_Detail;
+    cell.detailTextLabel.numberOfLines=4;
     
 
    

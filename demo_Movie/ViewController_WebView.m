@@ -31,9 +31,6 @@
     
     strHomepage_Path=self.movie.homepage;
     
-//    NSLog(@"movie.homepage : %@",self.movie.homepage);
-//    NSLog(@"strHomepage_Path: %@",strHomepage_Path);
-    
     NSURL *url_Homepage = [NSURL URLWithString:strHomepage_Path];
     NSURLRequest *requestUrl = [NSURLRequest requestWithURL:url_Homepage];
     [self.webView loadRequest:requestUrl];

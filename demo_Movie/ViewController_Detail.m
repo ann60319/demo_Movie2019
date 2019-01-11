@@ -27,8 +27,7 @@
     
     
     strPoster_path=self.movie_data.poster_Path;
-//    NSLog(@"url_poster: %@",strPoster_path);
-//    [img_MoviePoster.image sd_setImageWithURL:[NSURL URLWithString:strTitle]];
+
     lblTitle.text = self.movie_data.overview;
     lblVote_Ave.text=[self.movie_data.vote_Average stringValue];
     lblReleaseDate.text=self.movie_data.release_Date;
@@ -36,8 +35,7 @@
     
     strMovie_id=self.movie_data.movie_Id;
 
-//    NSLog(@"movie id: %@",strMovie_id);
-    
+
     [self load_img];
     [self getJSON_Movie_Detail];
     [super viewDidLoad];
@@ -59,16 +57,13 @@
     
     NSString *strUrlMov_Deatil = [NSString stringWithFormat:@"https://api.themoviedb.org/3/movie/%@?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US",strMovie_id];
     
-//    NSLog(@"url_Mov_Deatil : %@",urlMov_Deatil);
+
     NSURL *url_Mov_Detail = [NSURL URLWithString:strUrlMov_Deatil];
     
     [[NSURLSession.sharedSession dataTaskWithURL:url_Mov_Detail completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
-//        NSLog(@"finished get json.....");
-
         NSString *dumbStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//        NSLog(@"dumbStr is : %@", dumbStr);
-        
+
         if(dumbStr==nil){
             NSLog(@"look up your internet connection....");
         }
@@ -87,7 +82,6 @@
         
         self.movie_data.homepage=self.strHomepage;
         
-//        NSLog(@"strHomepage: %@",self.strHomepage);
 
     }]resume];
     
@@ -108,8 +102,6 @@
         ViewController_WebView *VC_Web = (ViewController_WebView *)[segue destinationViewController];
         
         VC_Web.movie = movie_homepage;
-        
-//        NSLog(@"VC_Web.movie: %@",VC_Web.movie.homepage);
         
     }
     

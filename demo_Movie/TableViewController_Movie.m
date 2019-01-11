@@ -26,7 +26,7 @@
 @implementation TableViewController_Movie
 
 int intPage=1;
-
+int allPages;
 NSString *cell=@"cell";
 NSString *urlStrDiscoveredMovie;
 
@@ -37,8 +37,6 @@ NSString *urlStrDiscoveredMovie;
     
 
     urlStrDiscoveredMovie = [NSString stringWithFormat:@"https://api.themoviedb.org/3/discover/movie?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US&include_adult=false&include_video=false&page=%d",intPage];
-    
-   
 
     //load data
     [self searchPastMovies:urlStrDiscoveredMovie];
@@ -73,6 +71,9 @@ NSString *urlStrDiscoveredMovie;
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"refreshing data....."];
     NSLog(@"refreshing....");
     
+    intPage=1;
+    urlStrDiscoveredMovie=[NSString stringWithFormat:@"https://api.themoviedb.org/3/discover/movie?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US&include_adult=false&include_video=false&page=%d",intPage];
+    
     [self searchPastMovies:urlStrDiscoveredMovie];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
@@ -100,47 +101,90 @@ NSString *urlStrDiscoveredMovie;
             }
            
             NSArray *movieResults = [movieJson valueForKey:@"results"];
-            NSLog(@"movie-result:%@",movieResults);
+            
+            if(intPage==16||intPage==15){
+//                NSLog(@"movie result:%@",movieResults);
+            }
+            
+            if(intPage==1)
+            {
+                NSArray *all_Pages = [movieJson valueForKey:@"total_pages"];
+                allPages = [[NSString stringWithFormat:@"%@", all_Pages] intValue];
+            }
+            
+
+            
             NSMutableArray<Movie_Data *> *arrayMoviedataPastMovies = NSMutableArray.new;
             
             for(NSDictionary *movieDict in movieResults){
                 NSString *title = movieDict[@"title"];
-                NSString *movie_Id = movieDict[@"id"];
-                NSNumber *vote_Average = movieDict[@"vote_average"];
+//                NSString *movie_Id = movieDict[@"id"];
+//                NSNumber *vote_Average = movieDict[@"vote_average"];
                 NSString *poster_Path = movieDict[@"poster_path"];
                 NSString *overview = movieDict[@"overview"];
                 NSString *release_Date = movieDict[@"release_date"];
-                NSString *original_Language = movieDict[@"original_language"];
+//                NSString *original_Language = movieDict[@"original_language"];
                 
                 
                 Movie_Data *movie = Movie_Data.new;
-                movie.title = title;
-                movie.movie_Id = movie_Id;
-                movie.vote_Average = vote_Average;
-                movie.overview = overview;
-                movie.release_Date = release_Date;
-                movie.original_Language = original_Language;
                 
+                if(title== (id)[NSNull null])
+                {
+                    title=@"No movie title";
+                    movie.title=title;
+                    
+                }
+                else{
+                    movie.title = title;
+                }
                 
-                NSString *urlstr_img = @"https://image.tmdb.org/t/p/w200";
-                movie.poster_Path = [urlstr_img stringByAppendingString: poster_Path];
+                if(overview == (id)[NSNull null]){
+                    overview = @"No overview";
+                    movie.overview = overview;
+                }
+                else{
+                    movie.overview = overview;
+                }
                 
+                if(release_Date == (id)[NSNull null]){
+                   movie.release_Date=@"No release date available";
+                   movie.release_Date = release_Date;
+                }
+                
+                else{
+                    movie.release_Date = release_Date;
+                }
+//                movie.movie_Id = movie_Id;
+//                movie.vote_Average = vote_Average;
+//                movie.overview = overview;
+//                movie.release_Date = release_Date;
+//                movie.original_Language = original_Language;
+                
+                if (poster_Path == (id)[NSNull null]){
+                     movie.poster_Path = @"1";
+//                    NSLog(@"when nil input poster path:%@",movie.poster_Path);
+                   
+                }
+                
+                else{
+                    NSString *urlstr_img = @"https://image.tmdb.org/t/p/w200";
+                    movie.poster_Path = [urlstr_img stringByAppendingString: poster_Path];
+//                    NSLog(@"input poster path:%@",movie.poster_Path);
+                    
+                }
                 
                 [arrayMoviedataPastMovies addObject:movie];
-                
                 
             }
             
             if(intPage==1){
                 self.arraymoviesInThePast = arrayMoviedataPastMovies;
-                //             NSLog(@"1---self.arraymoviesInThePast :%lu",(unsigned long)self.arraymoviesInThePast.count);
+                
             }
             
             else{
                 [self.arraymoviesInThePast addObjectsFromArray:arrayMoviedataPastMovies];
-                for(NSObject * a in  arrayMoviedataPastMovies){
-                    NSLog(@"a: %@",a);
-                }
+                
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -148,9 +192,7 @@ NSString *urlStrDiscoveredMovie;
                 
             });
             
-            
         }]resume];
-    
  }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -160,16 +202,29 @@ NSString *urlStrDiscoveredMovie;
     
     
     cell.textLabel.text = pastMovieList.title;
-    
-//    NSLog(@"past movie title: %@",pastMovieList.title);
     cell.textLabel.numberOfLines=2;
     
-    cell.detailTextLabel.text=pastMovieList.overview;
-    cell.detailTextLabel.numberOfLines=3;
+    NSString *cell_Detail= [NSString stringWithFormat:@"%@\r%@", pastMovieList.release_Date,pastMovieList.overview];;
     
+    if(cell_Detail==nil){
+        cell.detailTextLabel.text=@"No overview";
+    }
+    else{
+        cell.detailTextLabel.text=cell_Detail;
+    }
     
+    cell.detailTextLabel.numberOfLines=4;
     
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:pastMovieList.poster_Path] placeholderImage:[UIImage imageNamed:@"no-image.png"]];
+//    NSLog(@"pastMovieList:%d",[pastMovieList.poster_Path isEqualToString:@"1"]);
+    if ([pastMovieList.poster_Path isEqualToString:@"1"]){
+//        NSLog(@"poster path nil");
+         [cell.imageView setImage: [UIImage imageNamed:@"no-image.png"]];
+      
+    }
+    else{
+       [cell.imageView sd_setImageWithURL:[NSURL URLWithString:pastMovieList.poster_Path] placeholderImage:[UIImage imageNamed:@"no-image.png"]];
+//        NSLog(@"get poster path");
+    }
     
     cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
@@ -177,31 +232,23 @@ NSString *urlStrDiscoveredMovie;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    return 110;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.frame.size.height) {
-//        NSLog(@"At the bottom.....");
-        if(intPage<200){
+       
+        if(intPage<=allPages){
             
             intPage++;
-//            isRequestData=false;
-            
+//            NSLog(@"intpage:%d",intPage);
             urlStrDiscoveredMovie = [NSString stringWithFormat:@"https://api.themoviedb.org/3/discover/movie?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US&include_adult=false&include_video=false&page=%d",intPage];
             [self searchPastMovies:urlStrDiscoveredMovie];
+//            NSLog(@"urlStrDiscoveredMovie:%@",urlStrDiscoveredMovie);
           
-           
-            NSLog(@"searchyear-scrollbottom:%d",intPage);
         }
-        
-        
     }
 }
-
-
-
-
 
 
 @end

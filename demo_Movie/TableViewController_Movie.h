@@ -17,9 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray<Movie_Data *> *arrayMoviedataPastMovies;
 }
 
-
-
 -(void)refreshView:(UIRefreshControl *)refresh;
+
 @end
 
 NS_ASSUME_NONNULL_END
