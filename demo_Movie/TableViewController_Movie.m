@@ -101,10 +101,7 @@ NSString *urlStrDiscoveredMovie;
             }
            
             NSArray *movieResults = [movieJson valueForKey:@"results"];
-            
-            if(intPage==16||intPage==15){
-//                NSLog(@"movie result:%@",movieResults);
-            }
+          
             
             if(intPage==1)
             {
@@ -162,15 +159,14 @@ NSString *urlStrDiscoveredMovie;
                 
                 if (poster_Path == (id)[NSNull null]){
                      movie.poster_Path = @"1";
-//                    NSLog(@"when nil input poster path:%@",movie.poster_Path);
+
                    
                 }
                 
                 else{
                     NSString *urlstr_img = @"https://image.tmdb.org/t/p/w200";
                     movie.poster_Path = [urlstr_img stringByAppendingString: poster_Path];
-//                    NSLog(@"input poster path:%@",movie.poster_Path);
-                    
+
                 }
                 
                 [arrayMoviedataPastMovies addObject:movie];
@@ -215,15 +211,15 @@ NSString *urlStrDiscoveredMovie;
     
     cell.detailTextLabel.numberOfLines=4;
     
-//    NSLog(@"pastMovieList:%d",[pastMovieList.poster_Path isEqualToString:@"1"]);
+
     if ([pastMovieList.poster_Path isEqualToString:@"1"]){
-//        NSLog(@"poster path nil");
+
          [cell.imageView setImage: [UIImage imageNamed:@"no-image.png"]];
       
     }
     else{
        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:pastMovieList.poster_Path] placeholderImage:[UIImage imageNamed:@"no-image.png"]];
-//        NSLog(@"get poster path");
+
     }
     
     cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -241,7 +237,7 @@ NSString *urlStrDiscoveredMovie;
         if(intPage<=allPages){
             
             intPage++;
-//            NSLog(@"intpage:%d",intPage);
+            NSLog(@"intpage:%d",intPage);
             urlStrDiscoveredMovie = [NSString stringWithFormat:@"https://api.themoviedb.org/3/discover/movie?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US&include_adult=false&include_video=false&page=%d",intPage];
             [self searchPastMovies:urlStrDiscoveredMovie];
 //            NSLog(@"urlStrDiscoveredMovie:%@",urlStrDiscoveredMovie);

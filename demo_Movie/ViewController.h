@@ -11,8 +11,9 @@
 
 @interface ViewController : UITableViewController
 {
-        NSMutableArray<Movie_Data *> *arr_movies;
+//        NSMutableArray<Movie_Data *> *arr_movies;
 }
+@property (strong,nonatomic)NSMutableArray *arr_passData;
 
 @end
 

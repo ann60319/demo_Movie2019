@@ -20,9 +20,9 @@
 @property (strong, nonatomic) NSString *poster_Path;
 @property (strong, nonatomic) NSString *release_Date;
 @property (strong,nonatomic) NSNumber *vote_Average;
+@property (strong,nonatomic) NSMutableArray *arr_movies;
 
-
-
+-(void) parseJson_MovieNowPlaying:(NSString *)Url;
 
 
 
