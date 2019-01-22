@@ -7,7 +7,7 @@
 //
 
 #import "ViewController_Detail.h"
-#import "Movie_Data.h"
+#import "MovieData.h"
 #import "ViewController.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
@@ -97,7 +97,7 @@
     
     if ([[segue identifier] isEqualToString:@"showWeb"])
     {
-        Movie_Data *movie_homepage = self.movie_data;
+        MovieData *movie_homepage = self.movie_data;
         
         ViewController_WebView *VC_Web = (ViewController_WebView *)[segue destinationViewController];
         

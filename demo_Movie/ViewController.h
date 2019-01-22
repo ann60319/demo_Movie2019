@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Movie_Data.h"
+#import "MovieData.h"
 
 @interface ViewController : UITableViewController
 {

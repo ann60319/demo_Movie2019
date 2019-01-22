@@ -8,14 +8,14 @@
 
 #import "TableViewController_Movie.h"
 #import "ViewController.h"
-#import "Movie_Data.h"
+#import "MovieData.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 
 
 @interface TableViewController_Movie ()
 
-@property (strong,nonatomic) NSMutableArray<Movie_Data *> *arraymoviesInThePast;
+@property (strong,nonatomic) NSMutableArray<MovieData *> *arraymoviesInThePast;
 
 @end
 
@@ -111,7 +111,7 @@ NSString *urlStrDiscoveredMovie;
             
 
             
-            NSMutableArray<Movie_Data *> *arrayMoviedataPastMovies = NSMutableArray.new;
+            NSMutableArray<MovieData *> *arrayMoviedataPastMovies = NSMutableArray.new;
             
             for(NSDictionary *movieDict in movieResults){
                 NSString *title = movieDict[@"title"];
@@ -123,7 +123,7 @@ NSString *urlStrDiscoveredMovie;
 //                NSString *original_Language = movieDict[@"original_language"];
                 
                 
-                Movie_Data *movie = Movie_Data.new;
+                MovieData *movie = MovieData.new;
                 
                 if(title== (id)[NSNull null])
                 {
@@ -194,7 +194,7 @@ NSString *urlStrDiscoveredMovie;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell];
     
-    Movie_Data *pastMovieList = self.arraymoviesInThePast[indexPath.row];
+    MovieData *pastMovieList = self.arraymoviesInThePast[indexPath.row];
     
     
     cell.textLabel.text = pastMovieList.title;

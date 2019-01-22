@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
-#import "Movie_Data.h"
+#import "MovieData.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TableViewController_Movie : UITableViewController
 {
-    NSMutableArray<Movie_Data *> *arrayMoviedataPastMovies;
+    NSMutableArray<MovieData *> *arrayMoviedataPastMovies;
 }
 
 -(void)refreshView:(UIRefreshControl *)refresh;
