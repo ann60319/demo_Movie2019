@@ -15,11 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithDelegate:(id<MTableViewModelDelegate>) delegate;
 - (void) loadMore;
+-(void)getMovieData:(int)page;
 
+@property (nonatomic, weak) id<APIService> apiService;
 @property(nonatomic, weak) id<MTableViewModelDelegate> viewModeldelegate;
 @property (nonatomic, readonly) NSMutableArray *arrayMovies;
 @property(atomic, assign) int allPages;
-
+@property(atomic, assign) int page;
 @end
 
 NS_ASSUME_NONNULL_END

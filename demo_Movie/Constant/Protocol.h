@@ -16,3 +16,11 @@
 - (void)getDataFail:(NSError*)error;
 
 @end
+
+@protocol APIService<NSObject>
++ (id)sharedDataManager;
+-(void)getMovieData:(int)page
+            success:(void (^)(NSDictionary *dic))success
+            failure:(void (^)(NSError *error))failure;
+@end
+

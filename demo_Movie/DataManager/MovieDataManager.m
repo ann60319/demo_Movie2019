@@ -13,9 +13,19 @@
 
 @implementation MovieDataManager
 
-int Page=1;
 
--(void)getData:(int)page
+
+
++ (id)sharedDataManager {
+    static MovieDataManager *sharedDataManager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedDataManager = [[self alloc] init];
+    });
+    return sharedDataManager;
+}
+
+-(void)getMovieData:(int)page
        success:(void (^)(NSDictionary *dic))success
        failure:(void (^)(NSError *error))failure{
     
@@ -25,6 +35,7 @@ int Page=1;
     NSLog(@"get data been called fullURL: %@",fullURL);
     
     //after called get query plz add on 1 for page
+    [self getQuery:nil failure:failure success:success fullURL:fullURL];
     
 }
 
@@ -32,7 +43,7 @@ int Page=1;
 - (void)getQuery:(NSDictionary *)input
          failure:(void (^)(NSError *))failure
          success:(void (^)(NSDictionary *))success
-           p_url:(NSString *)urlString {
+           fullURL:(NSString *)urlString {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.timeoutIntervalForRequest = 30.f;
     configuration.timeoutIntervalForResource = 30.f;

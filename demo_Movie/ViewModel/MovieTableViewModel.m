@@ -19,17 +19,34 @@
     if (!self) return nil;
     _viewModeldelegate = delegate;
     _arrayMovies = NSMutableArray.new;
+    _apiService = [MovieDataManager sharedDataManager];
     
     return self;
 }
 
+-(void)getMovieData:(int) page{
+    __weak typeof(self) weakSelf = self;
+    [self.apiService getMovieData:page
+      success:^(NSDictionary *dic){
+          [self parseData:dic];
+      }
+      failure:^(NSError *error){
+          [weakSelf.viewModeldelegate getDataFail:error];
+     }];
+}
+
 -(void)loadMore{
-    NSLog(@"load more.....");
+    if(self.page < self.allPages){
+        self.page++;
+        [self getMovieData:self.page];
+    }
 }
 
 -(void)parseData:(NSDictionary *)input{
-    NSArray *all_Pages = [input valueForKey:@"total_pages"];
-    self.allPages = [[NSString stringWithFormat:@"%@", all_Pages] intValue];
+    NSNumber *allPages = input[@"total_pages"];
+    self.allPages = allPages.intValue;
+    NSNumber *page = input[@"page"];
+    self.page = page.intValue;
     
     NSArray *results = [input valueForKey:@"results"];
     NSLog(@"result: %@",results);
