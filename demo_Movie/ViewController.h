@@ -10,10 +10,7 @@
 #import "Movie_Data.h"
 
 @interface ViewController : UITableViewController
-{
-//        NSMutableArray<Movie_Data *> *arr_movies;
-}
-@property (strong,nonatomic)NSMutableArray *arr_passData;
+
 @property (weak, nonatomic) Movie_Data *movie;
 @end
 
