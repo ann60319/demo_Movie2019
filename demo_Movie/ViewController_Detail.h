@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MovieData.h"
+#import "Movie_Data.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ViewController_Detail : UIViewController
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong,nonatomic) NSString *strMovie_id;
 
 @property NSInteger *row;
-@property (strong,nonatomic)MovieData *movie_data;
+@property (strong,nonatomic)Movie_Data *movie_data;
 
 @end
 

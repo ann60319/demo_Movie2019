@@ -7,19 +7,21 @@
 //
 
 #import "ViewController.h"
-#import "MovieData.h"
+#import "Movie_Data.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "ViewController_Detail.h"
 #import "Protocol.h"
 #import "MovieTableViewModel.h"
+#import "URLConst.h"
+
 
 @interface ViewController () <MTableViewModelDelegate>  {
     MovieTableViewModel *viewModel;
     
 }
 
-@property (strong,nonatomic) NSMutableArray<MovieData *> *movies;
+@property (strong,nonatomic) NSMutableArray<Movie_Data *> *movies;
 
 
 @end
@@ -34,41 +36,12 @@
 
 NSString *cellid=@"cellid";
 
-NSString *urlstr_movieNowPlaying;
-
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    urlstr_movieNowPlaying = @"https://api.themoviedb.org/3/movie/now_playing?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US";
     
+    viewModel = [[MovieTableViewModel alloc] initWithDelegate:self];
+    [viewModel getMovieData:1];
     
-    
-    
-//    [self setUpMovies];
-    
-//    Movie_Data *movieData = [[Movie_Data alloc]init];
-//    
-//    [movieData parseJson_MovieNowPlaying:urlstr_movieNowPlaying
-//     
-//         tableReloadData:^{
-//     
-//             NSLog(@"self.arr_passData: %@",self.arr_passData);
-//             
-//             dispatch_async(dispatch_get_main_queue(), ^{
-//              [self.tableView reloadData];
-//              NSLog(@"reload data now");
-//                 
-//             });
-//     
-//         }
-//           cannotReload:^{
-//     
-//              NSLog(@"error cannot reload...");
-//         }];
-    
-
     self.navigationItem.title = @"Now Playing";
     self.navigationController.navigationBar.prefersLargeTitles=YES;
     
@@ -142,31 +115,34 @@ NSString *urlstr_movieNowPlaying;
 }
 
 - (void)getDataFail:(NSError *)error {
-    <#code#>
-}
-
-
--(void)setUpMovies{
     
-    self.movies = NSMutableArray.new;
-    
-    MovieData *movies = MovieData.new;
-    movies.title = @"Spider Man";
-    
-    [self.movies addObject:movies];
-    
+    NSDictionary *p_dic = error.userInfo;
+    NSString *errorDescprition = p_dic[@"NSLocalizedDescription"];
+    UIAlertController * alert = [UIAlertController
+                                 alertControllerWithTitle:@"Network Error"
+                                 message:errorDescprition
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:nil];
+    NSLog(@"%@", p_dic.description);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     return 110;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:
 (NSInteger)section{
-    //        return self.movies.count;
-    //    NSLog(@"table cell count: %lu",(unsigned long)self.arr_passData.count);
-    return  self.arr_passData.count;
     
+    return  viewModel.arrayMovies.count;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -174,26 +150,58 @@ NSString *urlstr_movieNowPlaying;
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellid];
     
-    MovieData *movies = self.arr_passData[indexPath.row];
-    //    self.movies[indexPath.row];
+    if(indexPath.row < viewModel.arrayMovies.count){
+        
+        Movie_Data *movie = viewModel.arrayMovies[indexPath.row];
+        //get the object from VM to VC
+        self.movie = movie;
+        
+        cell.textLabel.numberOfLines = 2;
+        cell.textLabel.text = movie.title;
+        
+        NSString *cellDetail = [NSString stringWithFormat:@"%@\r%@",movie.release_Date,movie.overview];
+        cell.detailTextLabel.text = cellDetail;
+        cell.detailTextLabel.numberOfLines=4;
+        
+        if([movie.poster_Path isEqualToString:URLIMAGE]){
+            [cell.imageView setImage: [UIImage imageNamed:@"no-image.png"]];
+        }
+        else{
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:movie.poster_Path] placeholderImage:[UIImage imageNamed:@"no-image.png"]];
+        }
+        
+    }
     
-    
-    
-    cell.textLabel.text = movies.title;
-    cell.textLabel.numberOfLines=2;
-    
-    NSString *cell_Detail= [NSString stringWithFormat:@"%@\r%@", movies.release_Date,movies.overview];;
-    cell.detailTextLabel.text=cell_Detail;
-    cell.detailTextLabel.numberOfLines=4;
-    
-    
-    
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:movies.poster_Path] placeholderImage:[UIImage imageNamed:@"no-image.png"]];
-    
+//    cell.textLabel.text = movies.title;
+//    cell.textLabel.numberOfLines=2;
+//    NSString *cell_Detail= [NSString stringWithFormat:@"%@\r%@", movies.release_Date,movies.overview];;
+//    cell.detailTextLabel.text=cell_Detail;
+//    cell.detailTextLabel.numberOfLines=4;
+//    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:movies.poster_Path] placeholderImage:[UIImage imageNamed:@"no-image.png"]];
+//
     cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     return cell;
     
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.frame.size.height) {
+        
+        if(viewModel.page < viewModel.allPages){
+            [viewModel loadMore];
+        }
+        
+//        if(intPage<=allPages){
+//
+//            intPage++;
+//            NSLog(@"intpage:%d",intPage);
+//            urlStrDiscoveredMovie = [NSString stringWithFormat:@"https://api.themoviedb.org/3/discover/movie?api_key=b97a81e1fcf56b0268751c485866beae&language=en-US&include_adult=false&include_video=false&page=%d",intPage];
+//            [self searchPastMovies:urlStrDiscoveredMovie];
+//            //            NSLog(@"urlStrDiscoveredMovie:%@",urlStrDiscoveredMovie);
+//
+//        }
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -211,12 +219,10 @@ NSString *urlstr_movieNowPlaying;
         
         ViewController_Detail *VC_D = (ViewController_Detail *)[segue destinationViewController];
         
-        MovieData *movie_picked =  self.arr_passData[index_Path.row];
-        //        self.movies[index_Path.row];
+        Movie_Data *moviePicked =  viewModel.arrayMovies[index_Path.row];
+        VC_D.movie_data = moviePicked;
         
-        VC_D.movie_data = movie_picked;
-        
-        [VC_D setTitle:movie_picked.title];
+        [VC_D setTitle:moviePicked.title];
         
     }
 }

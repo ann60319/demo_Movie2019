@@ -98,11 +98,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="lblVoteAve" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liK-nD-She">
-                                <rect key="frame" x="158" y="116" width="35" height="41"/>
+                                <rect key="frame" x="158" y="116" width="42" height="41"/>
                                 <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="35" id="638-c6-5Zm"/>
+                                    <constraint firstAttribute="width" constant="42" id="638-c6-5Zm"/>
                                     <constraint firstAttribute="height" constant="41" id="fzu-YN-x04"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -116,7 +116,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" restorationIdentifier="lblReleaseDate" text="2018-01-01" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIm-Y7-zXJ">
-                                <rect key="frame" x="240" y="179" width="119" height="18"/>
+                                <rect key="frame" x="231" y="179" width="119" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -131,7 +131,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" restorationIdentifier="lblLanguage" text="en" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cL7-1a-OAu">
-                                <rect key="frame" x="240" y="215" width="80" height="18"/>
+                                <rect key="frame" x="231" y="215" width="80" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -158,7 +158,7 @@
                             <constraint firstItem="liK-nD-She" firstAttribute="leading" secondItem="P9n-8j-aLH" secondAttribute="trailing" constant="20" id="CYK-tT-cyj"/>
                             <constraint firstItem="WoE-Ai-aJu" firstAttribute="leading" secondItem="3QM-Sz-sev" secondAttribute="leading" constant="23" id="FKU-Vb-hcZ"/>
                             <constraint firstItem="liK-nD-She" firstAttribute="leading" secondItem="PaM-0u-P54" secondAttribute="leading" id="J5B-sw-JZb"/>
-                            <constraint firstItem="3QM-Sz-sev" firstAttribute="trailing" secondItem="cL7-1a-OAu" secondAttribute="trailing" constant="55" id="Jts-FS-Tym"/>
+                            <constraint firstItem="3QM-Sz-sev" firstAttribute="trailing" secondItem="cL7-1a-OAu" secondAttribute="trailing" constant="64" id="Jts-FS-Tym"/>
                             <constraint firstItem="3QM-Sz-sev" firstAttribute="bottom" secondItem="tiI-4T-Aqe" secondAttribute="bottom" constant="29" id="Ogm-ih-bTX"/>
                             <constraint firstItem="WoE-Ai-aJu" firstAttribute="top" secondItem="cL7-1a-OAu" secondAttribute="bottom" constant="60" id="TEr-d0-5XM"/>
                             <constraint firstItem="tiI-4T-Aqe" firstAttribute="centerX" secondItem="cb0-WE-z6t" secondAttribute="centerX" constant="4" id="TNE-wo-QEy"/>
@@ -166,7 +166,7 @@
                             <constraint firstItem="PaM-0u-P54" firstAttribute="top" secondItem="liK-nD-She" secondAttribute="bottom" constant="19" id="Z6o-8H-Vuy"/>
                             <constraint firstItem="cL7-1a-OAu" firstAttribute="leading" secondItem="XIm-Y7-zXJ" secondAttribute="leading" id="aAn-n1-FkR"/>
                             <constraint firstItem="liK-nD-She" firstAttribute="leading" secondItem="phq-fy-hH0" secondAttribute="leading" id="dss-ha-9KN"/>
-                            <constraint firstItem="cL7-1a-OAu" firstAttribute="leading" secondItem="phq-fy-hH0" secondAttribute="trailing" constant="-18" id="fNT-kV-VF6"/>
+                            <constraint firstItem="cL7-1a-OAu" firstAttribute="leading" secondItem="phq-fy-hH0" secondAttribute="trailing" constant="-27" id="fNT-kV-VF6"/>
                             <constraint firstItem="P9n-8j-aLH" firstAttribute="top" secondItem="3QM-Sz-sev" secondAttribute="top" constant="21" id="fOw-tu-HWB"/>
                             <constraint firstItem="cL7-1a-OAu" firstAttribute="top" secondItem="XIm-Y7-zXJ" secondAttribute="bottom" constant="18" id="iro-JG-Qoe"/>
                             <constraint firstItem="WoE-Ai-aJu" firstAttribute="top" secondItem="phq-fy-hH0" secondAttribute="bottom" constant="59" id="jJZ-UK-QTW"/>
@@ -189,7 +189,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W1s-WN-6iK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="180" y="409"/>
+            <point key="canvasLocation" x="180" y="408.84557721139436"/>
         </scene>
         <!--View Controller Web View-->
         <scene sceneID="Gow-eX-FYk">

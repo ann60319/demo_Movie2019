@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MovieData.h"
+#import "Movie_Data.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @property(strong,nonatomic) NSString *strHomepage_Path;
-@property (strong,nonatomic)MovieData *movie;
+@property (strong,nonatomic)Movie_Data *movie;
 
 
 

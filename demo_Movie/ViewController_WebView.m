@@ -8,7 +8,7 @@
 
 #import "ViewController_WebView.h"
 #import "ViewController_Detail.h"
-#import "MovieData.h"
+#import "Movie_Data.h"
 
 
 
